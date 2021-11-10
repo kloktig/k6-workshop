@@ -1,0 +1,14 @@
+{
+  "name": "node-simple",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "node simple.test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "ndc-2021-workshop-dummy-login": "^1.0.5"
+  }
+}

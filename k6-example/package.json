@@ -1,0 +1,16 @@
+{
+  "name": "k6-example",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "k6 run simple.test.js -v",
+    "test:cloud": "k6 cloud simple.test.js -v"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "k6": "^0.0.0",
+    "ndc-2021-workshop-dummy-login": "^1.1.1"
+  }
+}
