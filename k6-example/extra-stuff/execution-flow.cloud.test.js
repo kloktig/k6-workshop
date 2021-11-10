@@ -24,22 +24,16 @@ export const options = {
 console.log(`<*>: VU:${__VU} ENV['name']=${__ENV['name']}`);
 
 export function setup() {
-    console.log(`${__ENV.LI_LOAD_ZONE}-${__ENV.LI_INSTANCE_ID}-${__ENV.LI_INSTANCE_ID}`);
-
     console.log(`**Setup** VU: ${__VU} ENV['name']=${__ENV['name']}`);
     return "Hello"
 }
 
 export default function (greeting) {
-    console.log(`${__ENV.LI_LOAD_ZONE}-${__ENV.LI_INSTANCE_ID}-${__ENV.LI_INSTANCE_ID}`);
-
     console.log(`${greeting} ${__ENV.name} VU:${__VU}, ITER: ${__ITER}`);
     sleep(0.2)
 }
 
 export function teardown() {
-    console.log(`${__ENV.LI_LOAD_ZONE}-${__ENV.LI_INSTANCE_ID}-${__ENV.LI_DISTRIBUTION}`);
-
     console.log(`**Teardown** - VU: ${__VU} ENV['name']=${__ENV['name']}`);
 }
 
