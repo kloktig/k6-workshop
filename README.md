@@ -5,7 +5,7 @@
 * k6 v0.34.1
 * Docker version 20.*(?)
 * .NET6 SDK
-* Microsoft Azure Storage Explorer is not required, but is very usefull
+* Microsoft Azure Storage Explorer is not required, but is very useful
 
 And you need to clone https://github.com/kloktig/vote
 
