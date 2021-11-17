@@ -1,0 +1,1 @@
+// How to make test not return 0 in order to fail it in CI

@@ -102,3 +102,10 @@ dist
 
 # TernJS port file
 .tern-port
+README.md
+.idea/.gitignore
+.idea/k6-workshop.iml
+.idea/modules.xml
+.idea/vcs.xml
+1-node-example/README.md
+2-k6-challenges/1-handling-modules/README.md
