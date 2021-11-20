@@ -5,7 +5,6 @@
   "scripts": {
     "test": "node simple.test.js"
   },
-  "main": "simple.test.js",
   "author": "",
   "license": "ISC",
   "type": "module",
