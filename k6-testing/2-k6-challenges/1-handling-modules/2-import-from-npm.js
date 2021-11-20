@@ -1,4 +1,5 @@
 // TODO: You need to import 'LoginClientK6' and 'parseJwtK6' from 'ndc-2021-workshop-dummy-login'
+import {LoginClientK6, parseJwtk6} from "../node_modules/ndc-2021-workshop-dummy-login/indexk6.js";
 
 const loginClient = new LoginClientK6("https://localhost:7240");
 
@@ -9,5 +10,5 @@ export const options = {
 
 export default function () {
     const token = loginClient.login({username: "NDC_USER", password: "NDC_PASSWORD"});
-    console.log(`${JSON.stringify(parseJwtK6(token), null, 2)}\n`);
+    console.log(`${JSON.stringify(parseJwtk6(token), null, 2)}\n`);
 }

@@ -1,5 +1,6 @@
-// You need to import built-in k6 function 'sleep'
+// Challenge 1: You need to import built-in k6 function 'sleep'
 // Ref: https://k6.io/docs/javascript-api/
+import { sleep } from "k6"
 
 export const options = {
     iterations: 40,
@@ -14,6 +15,7 @@ export function setup() {
     return "Hello"
 }
 
+// Challenge 2: Inject name in env Link til ENV
 export default function (greeting) {
     // PS: Can also use __ENV["name"]
     const name = __ENV.name || "Default"
