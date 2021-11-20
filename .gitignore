@@ -106,3 +106,4 @@ dist
 app
 bin
 obj
+.DS_Store
