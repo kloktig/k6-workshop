@@ -5,8 +5,8 @@ ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-# Avoid warnings by switching to noninteractive
-
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
 
 # Configure apt and install packages
 RUN apt-get update \
@@ -35,3 +35,6 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+RUN sudo apt install -y nodejs

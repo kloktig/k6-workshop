@@ -7,7 +7,7 @@
     "dockerComposeFile": "docker-compose.yaml" ,
     "service":"voteapi",    
 
-    "forwardPorts": [10000, 10001, 10002, 5135],
+    "forwardPorts": [10000, 10001, 10002],
     // Set *default* container specific settings.json values on container create.
     "settings": {},
     // Add the IDs of extensions you want installed when the container is created.
