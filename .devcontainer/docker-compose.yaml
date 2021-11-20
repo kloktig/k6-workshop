@@ -10,3 +10,14 @@ services:
       - '10002:10002'
     volumes:
       - '~/azurite:/data'    
+
+  voteapi:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "7240:7240"
+      - "5135:5135"
+    volumes:
+      - ../:/workspace:cached  
