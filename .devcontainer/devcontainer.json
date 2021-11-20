@@ -13,5 +13,6 @@
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
     ],
+    "postStartCommand": "dotnet dev-certs https",
     "remoteUser": "vscode"
 }
