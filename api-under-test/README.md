@@ -1,13 +1,13 @@
 # Vote
 Simplistic solution for voting.
 
-## Running
+## Local setup
+Run in dev container or:
 1. Start Azurite:`docker-compose up -d`
 2. Start application, e.g. by running in IDE or `dotnet run --project vote`
 
 ## Exploring
 Swagger is found here:
-* https://localhost:7240/swagger/index.html
 * http://localhost:5135/swagger/index.html
 
 ## Using the API:

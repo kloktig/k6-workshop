@@ -43,7 +43,13 @@ You will need to to do changes to the k6-tests located in the [k6-tests](k6-test
 In VS Code
 <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> > Run test task -> Run k6test Windows|Linux
 
+## Challenge 0 - Verifying the API is running
+* run task `run and watch web api` or start the API in some other way
+* run taks `ping api` or verify the API is running in some other way
+
 ## Challenge 1 - Get to know the API
 Refer to [Readme for api-under-test](api-under-test/README.md)
 
-## Challenge 1 - Basic k6-test
+## Challenge 2 - Basic k6-test
+
+WIP

@@ -2,31 +2,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/api-under-test/api-under-test.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "run and watch web api",
-            "command": "dotnet watch -p api-under-test/api-under-test.csproj run",
+            "command": "dotnet watch --project api-under-test/vote/vote.csproj run",
             "type": "shell",
             "group": "build",
-            "problemMatcher": "$msCompile"
-        }, {
-            "label": "run web api",
-            "command": "dotnet run --project api-under-test/api-under-test.csproj",
-            "type": "shell",
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
             "problemMatcher": "$msCompile"
         },
         {
@@ -37,15 +16,9 @@
         },
         {
             "label": "ping api",
-            "command": "wget http://localhost:5000/weatherforecast_intro",
+            "command": "wget http://localhost:5135",
             "type": "shell",
             "group": "test",
-        },
-        {
-            "label": "setup logging and dashboards",
-            "command": "scripts/setup-influx-and-grafana-dashboards.sh",
-            "type": "shell",
-            "group": "none"
         }
     ],
       "inputs": [
@@ -54,10 +27,15 @@
         "id": "testToRun",
         "description": "Which test do you want to run?",
         "options": [
-            "intro",
             "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
         ],
-        "default": "intro"
+        "default": "1"
         }
     ]
 }
