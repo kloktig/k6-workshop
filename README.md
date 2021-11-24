@@ -76,28 +76,28 @@ When you are using k6 in continous integration task, e.g. when using k6 for runn
 Make sure the test fails in a way that will return a number different from 0
 Execute 'echo $?' in console after running test to the latests status code, or run the VS code task `print last return code`. Note that executing this twice will return 0.
 
-# Challenge 4 - Understanding the test life cycle
+## Challenge 4 - Understanding the test life cycle
 Refer to https://k6.io/docs/using-k6/test-life-cycle/ for this challege.
 
 A lot of stuff is going on. The test is setup with 3 iterations distributed over 2 VUs. Note that there is an additional VU number 0, which runs the setup and teardown.
 
 Analyse the test life cycle and see if you can make sense of it.
 
-# Challenge 5 - Inject environment variables
+## Challenge 5 - Inject environment variables
 refer to https://k6.io/docs/using-k6/environment-variables/
 
 It is very useful to be able to inject environment variables. Print a greeting to someone with both ways described in the referenced documentation. You can also try `export name=TODO`. What can you say about precendence?
 
-# Challenge 6 - Import library using public link to JS
+## Challenge 6 - Import library using public link to JS
 Just a demo. This is a way of importing code from the outside; By referencing a public js-file. In k6, however, every VU has a separate javascript virtual machine, duplicating the resource usage once each.
 
-# Challenge 7: Import library using NPM
+## Challenge 7: Import library using NPM
 Just a demo. Importing modules is described her: https://k6.io/docs/using-k6/modules/#bundling-node-modules
 I have chosen pragmatic solution, where i use the files imported into node_modules as "normal files" and refer to them explicitly. 
 
 You can use webpack to bundle if you want a prettier solution for this. https://k6.io/docs/using-k6/modules/#setting-up-the-bundler
 
-# Challenge 8: Scenario Test
+## Challenge 8: Scenario Test
 Make a more complex test where you:
 * Setup:
     * Add participants
@@ -107,5 +107,5 @@ Make a more complex test where you:
     * Get current poll
     * Add votes
 
-# Challenge 9: Run cloud tests, and discuss the result
+## Challenge 9: Run cloud tests, and discuss the result
 We run a scenario test towards the deployed voting system, and discuss the results and potential improvements.
