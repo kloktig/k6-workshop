@@ -19,6 +19,21 @@
             "command": "wget http://localhost:5135",
             "type": "shell",
             "group": "test",
+        },
+        {
+            "label": "print last return code",
+            "command": "echo $?",
+            "type": "shell",
+            "group": "test",
+        },
+        {
+            "label": "run npm ci",
+            "command": "npm ci",
+            "type": "shell",
+            "group": "test",
+            "options": {
+                "cwd": "${cwd}/k6-tests"
+            },
         }
     ],
       "inputs": [

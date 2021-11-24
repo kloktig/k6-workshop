@@ -37,19 +37,75 @@ The watch and test commands runs in different terminal tabs, see the red ring in
 # Run the tests
 <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> and "Run Test Task" - "k6 test", then select the number of the test you want to run. This should run the loadtest.
 
+# A few words about k6
+* Scripting in JavaScript ES2015/ES6 
+    * http://es6-features.org/#Constants
+    * JavaScript API is found here: https://k6.io/docs/javascript-api/
+* It does not run in NodeJS nor on a browser - It is a separate runtime.
+* Can run locally `k6 run` and in the cloud `k6 cloud`
+* The xk6 extensions does not run in k6 cloud
+* VU is defined the following way(ref https://k6.io/docs/getting-started/running-k6/#adding-more-vus):
+    >k6 works with the concept of virtual users (VUs), which run scripts - they're essentially glorified, parallel while(true) loops.
+* Add `--http-debug` flag to get HTTP request and response logs: https://k6.io/docs/using-k6/http-debugging/
+
 # Challenges 
 You will need to to do changes to the k6-tests located in the [k6-tests](k6-tests) folder, while running the API under test found in the [api-under-test](api-under-test) folder.
 
 In VS Code
 <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> > Run test task -> Run k6test Windows|Linux
 
-## Challenge 0 - Verifying the API is running
+## Challenge -1 - Verifying the API is running
 * run task `run and watch web api` or start the API in some other way
 * run taks `ping api` or verify the API is running in some other way
 
-## Challenge 1 - Get to know the API
+## Challenge 0 - Get to know the API
 Refer to [Readme for api-under-test](api-under-test/README.md)
 
-## Challenge 2 - Basic k6-test
+## Challenge 1 - Basic k6-test
+Verify that the API is running. Try running with additional HTTP loggin:
+`k6 run challenge1test.js --http-debug="full"`
 
-WIP
+## Challenge 2 - Fix the checks
+We want to check the HTTP status code and that a body has returned. Fix the tests, so they are according to the documentation.  
+
+## Challenge 3 - Making the process fail
+Refer to https://k6.io/docs/using-k6/thresholds/.
+
+When you are using k6 in continous integration task, e.g. when using k6 for running core-/smoketests, you need to make sure that the process returns something other than 0. Othervise the CI pipeline will just continue. 
+
+Make sure the test fails in a way that will return a number different from 0
+Execute 'echo $?' in console after running test to the latests status code, or run the VS code task `print last return code`. Note that executing this twice will return 0.
+
+# Challenge 4 - Understanding the test life cycle
+Refer to https://k6.io/docs/using-k6/test-life-cycle/ for this challege.
+
+A lot of stuff is going on. The test is setup with 3 iterations distributed over 2 VUs. Note that there is an additional VU number 0, which runs the setup and teardown.
+
+Analyse the test life cycle and see if you can make sense of it.
+
+# Challenge 5 - Inject environment variables
+refer to https://k6.io/docs/using-k6/environment-variables/
+
+It is very useful to be able to inject environment variables. Print a greeting to someone with both ways described in the referenced documentation. You can also try `export name=TODO`. What can you say about precendence?
+
+# Challenge 6 - Import library using public link to JS
+Just a demo. This is a way of importing code from the outside; By referencing a public js-file. In k6, however, every VU has a separate javascript virtual machine, duplicating the resource usage once each.
+
+# Challenge 7: Import library using NPM
+Just a demo. Importing modules is described her: https://k6.io/docs/using-k6/modules/#bundling-node-modules
+I have chosen pragmatic solution, where i use the files imported into node_modules as "normal files" and refer to them explicitly. 
+
+You can use webpack to bundle if you want a prettier solution for this. https://k6.io/docs/using-k6/modules/#setting-up-the-bundler
+
+# Challenge 8: Scenario Test
+Make a more complex test where you:
+* Setup:
+    * Add participants
+    * Create a poll
+* Run:
+    * Login user, i.e. get access token
+    * Get current poll
+    * Add votes
+
+# Challenge 9: Run cloud tests, and discuss the result
+We run a scenario test towards the deployed voting system, and discuss the results and potential improvements.

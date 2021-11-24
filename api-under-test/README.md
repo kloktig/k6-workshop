@@ -6,6 +6,10 @@ Run in dev container or:
 1. Start Azurite:`docker-compose up -d`
 2. Start application, e.g. by running in IDE or `dotnet run --project vote`
 
+## Recommendations
+`Microsoft Azure Storage Explorer` is very usefull for looking at the data in the table storage.
+
+
 ## Exploring
 Swagger is found here:
 * http://localhost:5135/swagger/index.html

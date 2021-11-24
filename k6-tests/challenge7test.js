@@ -1,11 +1,12 @@
-// Challenge 1: You need to import 'LoginClientK6' and 'parseJwtK6' from 'ndc-2021-workshop-dummy-login'
 
-// You can use webpack to bundle. https://k6.io/docs/using-k6/modules/#bundling-node-modules
+try {
+    open("./node_modules/ndc-2021-workshop-dummy-login/indexk6.js")    
+} catch (error) {
+    console.error("Run 'npm ci' or task 'run npm ci'")
+}
+// This was only to make a better error message
 
-// I have chosen another pragmatic solution, where i use the files imported into node_modules as "normal files" and refer to them explicitly.
-
-// import {LoginClientK6, parseJwtK6} and try to do the rest..
-
+import {LoginClientK6, parseJwtK6} from "./node_modules/ndc-2021-workshop-dummy-login/indexk6.js"
 import {check} from "k6"
 
 const loginClient = new LoginClientK6("http://localhost:5135");
