@@ -15,6 +15,12 @@
             "group": "test",
         },
         {
+            "label": "run k6test --http-debug='full'",
+            "command": "k6 run k6-tests/challenge${input:testToRun}test.js --http-debug='full'",
+            "type": "shell",
+            "group": "test",
+        },
+        {
             "label": "ping api",
             "command": "wget http://localhost:5135",
             "type": "shell",
