@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace vote.Participant
 {
     [ApiController]
-    [Route("admin/participants")]
+    [Route("admin/participant")]
     public class ParticipantsAdminController : ControllerBase
     {
         private readonly ParticipantRepo _participantRepo;

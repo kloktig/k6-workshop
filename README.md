@@ -103,8 +103,8 @@ Make a more complex test where you:
     * Add participants
     * Create a poll
 * Run:
-    * Login user, i.e. get access token
     * Get current poll
+    * Login user, i.e. get access token
     * Add votes
 
 ## Challenge 9: Run cloud tests, and discuss the result
