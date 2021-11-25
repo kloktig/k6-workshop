@@ -12,39 +12,58 @@ const baseUrl = "http://localhost:5135";
 let token;
 
 export const options = {
-    vus: 100,
-    iterations: 300
+    vus: 1000,
+    stages: [
+        { target: 1000, duration: '1m' }
+    ],
+    thresholds: {
+        'http_req_duration{name:PublicCrocs}': ['avg<400'],
+    },
 };
 
 export function setup() {
     const participants = ensureParticipantsAndGet();
-    ensureActivePollActive(participants)
+    ensureActivePollActive(participants);
 
-    return http.get(`${baseUrl}/poll`).json();;
+    return http.get(`${baseUrl}/poll`).json();
 }
 
 const participants = ["Test1", "Test2"];
 
 export default function (setupData) {
     if (__ITER == 0) {
-        check(setupData, { "Poll Ready in VU context": (data) => data.id })
+        check(setupData, { "Poll Ready in VU context": (data) => data.id });
     }
 
     if (!token) {
-        token = login(`${baseUrl}`)
-        check(token, { "Token OK": t => !!t });
-        header["Authorization"] = `Bearer ${token}`;
+        token = login(`${baseUrl}`);
     }
+    check(token, { "Token OK": t => !!t });
 
-    const votes = {
+    const voteUrl = `${baseUrl}/${setupData.id}`;
+    const votePayload = JSON.stringify(getRandomVotes());
+    const params = { 
+        headers: { 
+            "Content-Type": "application/json", 
+            Authorization: `Bearer ${token}` 
+        }, 
+        tags: {
+            name: "votes"
+        }
+    };
+    
+    const vote = http.post(voteUrl, votePayload, params);
+    
+    check(vote, { "Vote OK": vote => vote.status === 202 });
+}
+
+function getRandomVotes() {
+    return {
         "vote1": participants[getRandom(2)],
         "vote2": participants[getRandom(2)],
         "vote3": participants[getRandom(2)]
     };
-
-    http.post(`${baseUrl}/${setupData.id}`, JSON.stringify(votes), header)
 }
-
 
 function getRandom(max) {
     return Math.floor(Math.random() * max)
@@ -60,24 +79,23 @@ function login() {
 }
 
 function ensureParticipantsAndGet() {
-    let participants = http.get(`${baseUrl}/participants`)
+    let participants = http.get(`${baseUrl}/participants`).json()
     if (participants.length < 2) {
         http.post(`${baseUrl}/admin/participant`, JSON.stringify({ name: "Test1" }), { headers: header });
         http.post(`${baseUrl}/admin/participant`, JSON.stringify({ name: "Test2" }), { headers: header });
-        participants = http.get(`${baseUrl}/participants`)
+        participants = http.get(`${baseUrl}/participants`).json()
     }
 
-    check(participants, { "Participants OK": participants => participants.json().length > 1 });
-    return participants.json()
+    check(participants, { "Participants OK": participants => participants.length > 1 });
+    return participants
 }
 
 function ensureActivePollActive(participants) {
     let currentPoll = http.get(`${baseUrl}/poll`).json();
-    if (!currentPoll.endTime) {
+    if (currentPoll.endTime) {
         check({}, { "poll Already OK": () => true });
         return currentPoll;
     }
-    console.log(JSON.stringify(currentPoll))
 
     const participantsInPoll = JSON.stringify(participants.slice(0, 2));
     const poll = http.post(`${baseUrl}/admin/poll`, participantsInPoll, { headers: header });

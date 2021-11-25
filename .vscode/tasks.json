@@ -2,11 +2,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run and watch web api",
-            "command": "dotnet watch --project api-under-test/vote/vote.csproj run",
+            "label": "run web api",
+            "command": "dotnet run -v:n",
             "type": "shell",
             "group": "build",
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${cwd}/api-under-test/vote/"
+            },
         },
         {
             "label": "run k6test",
