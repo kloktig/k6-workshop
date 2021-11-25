@@ -62,7 +62,7 @@ In VS Code
 Refer to [Readme for api-under-test](api-under-test/README.md)
 
 ## Challenge 1 - Basic k6-test
-Verify that the API is running. Try running with additional HTTP loggin:
+Verify that the API is running. Try running with additional HTTP logging:
 `k6 run challenge1test.js --http-debug="full"`
 
 ## Challenge 2 - Fix the checks
