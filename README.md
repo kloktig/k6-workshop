@@ -57,8 +57,6 @@ In VS Code
 Refer to [Readme for api-under-test](api-under-test/README.md)
 
 ## Challenge 1 - Basic k6-test
-To start a test: <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> and "Run Test Task" - "k6 test", then select the number of the test you want to run. This should run the loadtest.
-
 Verify that the API is running. Try running with additional HTTP logging:
 `k6 run challenge1test.js --http-debug="full"`
 
