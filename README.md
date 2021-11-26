@@ -28,7 +28,7 @@ Depending on versions of docker and WSL you might have to share the repo in Dock
 ![Turn on filesharing](https://user-images.githubusercontent.com/1174441/82738627-4c7a4680-9d39-11ea-9b6a-ab42b9accec3.png)
 
 # Starting the API
-It should work to use <kbd>CTRL</kbd>+<kbd>SHIFT</kbd> + <kbd>P</kbd> and select "Run Build Task" and then select - "watch" to start the API.
+It should work to use <kbd>CTRL</kbd>+<kbd>SHIFT</kbd> + <kbd>P</kbd> and select "Run Build Task" and then select - "run web api" to start the API.
  
 The API will reload once changed and should be exposed at http://localhost:5135/ with the documentation shown under http://localhost:5135/swagger/index.html
 
