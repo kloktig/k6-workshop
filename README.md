@@ -32,8 +32,6 @@ It should work to use <kbd>CTRL</kbd>+<kbd>SHIFT</kbd> + <kbd>P</kbd> and select
  
 The API will reload once changed and should be exposed at http://localhost:5135/ with the documentation shown under http://localhost:5135/swagger/index.html
 
-The watch and test commands runs in different terminal tabs, see the red ring in the bottom picture of K6 in this README to see how to select the tab if you can not see anything happenning as you run tasks.
-
 # Run the tests
 <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> and "Run Test Task" - "k6 test", then select the number of the test you want to run. This should run the loadtest.
 
