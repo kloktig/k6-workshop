@@ -32,9 +32,6 @@ It should work to use <kbd>CTRL</kbd>+<kbd>SHIFT</kbd> + <kbd>P</kbd> and select
  
 The API will reload once changed and should be exposed at http://localhost:5135/ with the documentation shown under http://localhost:5135/swagger/index.html
 
-# Run the tests
-<kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> and "Run Test Task" - "k6 test", then select the number of the test you want to run. This should run the loadtest.
-
 # A few words about k6
 * Scripting in JavaScript ES2015/ES6 
     * http://es6-features.org/#Constants
@@ -60,6 +57,8 @@ In VS Code
 Refer to [Readme for api-under-test](api-under-test/README.md)
 
 ## Challenge 1 - Basic k6-test
+To start a test: <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> and "Run Test Task" - "k6 test", then select the number of the test you want to run. This should run the loadtest.
+
 Verify that the API is running. Try running with additional HTTP logging:
 `k6 run challenge1test.js --http-debug="full"`
 
