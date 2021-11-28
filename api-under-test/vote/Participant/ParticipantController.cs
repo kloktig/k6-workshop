@@ -15,7 +15,7 @@ namespace vote.Participant
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IList<ParticipantDto>), 200)]
+        [ProducesResponseType(typeof(List<ParticipantDto>), 200)]
         public IActionResult GetParticipants()
         {
             return Ok(_participantRepo.GetParticipants());

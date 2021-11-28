@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
 namespace vote.Participant
 {
-    public record ParticipantDto
+    public class ParticipantDto
     {
         public string Name { get; }
         
@@ -8,5 +11,12 @@ namespace vote.Participant
         {
             Name = name;
         }
+    }
+    
+    [JsonSerializable(typeof(IList<ParticipantDto>))]
+    [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
+    internal partial class ParticipantDtoContext : JsonSerializerContext
+    {
+        
     }
 }

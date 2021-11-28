@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Azure.Data.Tables;
@@ -26,7 +27,7 @@ namespace vote.Participant
             return pages.First().Values.ToImmutableList();
         }
 
-        public ImmutableList<ParticipantDto> GetParticipants()
+        public IList<ParticipantDto> GetParticipants()
         {
             return ReadParticipants()
                 .Select(participantEntity => new ParticipantDto(participantEntity.Name)).ToImmutableList();

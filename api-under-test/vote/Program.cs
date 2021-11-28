@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -37,7 +36,7 @@ builder.Services.AddSwaggerGen(c =>
         {
             new OpenApiSecurityScheme
                 {Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "Bearer"}},
-            new string[] { }
+            System.Array.Empty<string>()
         }
     });
 });

@@ -34,19 +34,19 @@ namespace vote.Poll
             return Ok(_pollRepo.GetLastPoll());
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(IList<PollEntity>), 200)]
+        public IActionResult ListAll()
+        {
+            return Ok(_pollRepo.ListPolls());
+        }
+        
         [HttpPost]
         [Route("close/{id}")]
         [ProducesResponseType(typeof(PollDto), 200)]
         public async Task<IActionResult> ClosePoll(string id)
         {
             return Ok(await _pollRepo.AddEndTime(id, DateTimeOffset.UtcNow));
-        }
-
-        [HttpGet]
-        [ProducesResponseType(typeof(IList<PollEntity>), 200)]
-        public IActionResult ListAll()
-        {
-            return Ok(_pollRepo.ListPolls());
         }
     }
 }

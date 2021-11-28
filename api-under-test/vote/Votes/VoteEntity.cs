@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using Azure;
 using Azure.Data.Tables;
 
@@ -18,13 +20,14 @@ namespace vote.Votes
             {
                 PartitionKey = uid,
                 RowKey = pollId,
-                Votes = JsonSerializer.Serialize(votes),
+                Votes = JsonSerializer.Serialize(votes, typeof(VotesDto), VotesDtoContext.Default),
             };
         }
 
-        private VotesDto VotesDto => JsonSerializer.Deserialize<VotesDto>(Votes);
+        private VotesDto? VotesDto => JsonSerializer.Deserialize<VotesDto>(Votes, VotesDtoContext.Default.VotesDto);
+        
 
-        public string? Votes { get; init; }
+        public string Votes { get; init; }
         
         public string PartitionKey { get; set; }
         public string RowKey { get; set; }
