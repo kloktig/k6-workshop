@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using vote.Participant;
@@ -20,7 +18,7 @@ namespace vote.Poll
         public static PollDto Default = new()
         {
             Id = "null",
-            Participants = ImmutableList<ParticipantDto>.Empty,
+            Participants = new List<ParticipantDto>(),
             StartTime = null,
             EndTime = null,
         };

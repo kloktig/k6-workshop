@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace vote.Participant
 {
-    public class ParticipantDto
+    public record ParticipantDto
     {
         public string Name { get; }
         

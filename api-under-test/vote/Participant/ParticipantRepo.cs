@@ -19,7 +19,7 @@ namespace vote.Participant
             _participantsTableClient = serviceClient.GetTableClient("participants");
         }
 
-        private ImmutableList<ParticipantEntity> ReadParticipants()
+        private IList<ParticipantEntity> ReadParticipants()
         {
             var pages = _participantsTableClient.Query<ParticipantEntity>().AsPages().ToImmutableList();
             if (pages.Count > 1)

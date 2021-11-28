@@ -51,7 +51,7 @@ namespace vote.Poll
             var pages = _tableClient.Query<PollEntity>(filter).AsPages().ToImmutableList();
             if (pages.Count > 1)
                 throw new Exception("Assuming we have only one page");
-            return pages.First().Values.ToImmutableList();
+            return pages.First().Values.OrderByDescending(v => v.StartTime).ToImmutableList();
         }
         
         public PollEntity FindEntity(string id)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace vote.Votes
             await _table.UpsertEntityAsync(VoteEntity.From(uid, pollId, votes));
         }
 
-        public ImmutableList<VoteEntity> Read(string id)
+        public IList<VoteEntity> Read(string id)
         {
             var filter = $"RowKey eq '{id}'";
             var pages = _table.Query<VoteEntity>(filter).AsPages().ToImmutableList();

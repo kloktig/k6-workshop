@@ -16,7 +16,7 @@ namespace vote.Poll
             {
                 PartitionKey = "TBD",
                 RowKey = Guid.NewGuid().ToString(),
-                Participants = JsonSerializer.Serialize(participants, typeof(PollDto), PollDtoContext.Default),
+                Participants = JsonSerializer.Serialize(participants, typeof(IList<ParticipantDto>), ParticipantDtoContext.Default),
                 StartTime = DateTimeOffset.UtcNow,
                 EndTime = endTime
             };
