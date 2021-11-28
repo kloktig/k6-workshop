@@ -13,6 +13,7 @@ export function setup() {
     return { greeting: "Hello world!", counter: 0 }
 }
 
+// Challenge: Understand the test lifecycle/execution order 
 export default function (setup) {
     console.log(`${++counter} VU code ---> ${setup.greeting} with setupCounter=${++setup.counter} VU:${__VU}, ITER: ${__ITER}`);
 

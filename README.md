@@ -60,6 +60,8 @@ Refer to [Readme for api-under-test](api-under-test/README.md)
 Verify that the API is running. Try running with additional HTTP logging:
 `k6 run challenge1test.js --http-debug="full"`
 
+To better understand the entries in the output report, refer to: https://k6.io/docs/using-k6/metrics/#http-specific-built-in-metrics
+
 ## Challenge 2 - Fix the checks
 We want to check the HTTP status code and that a body has returned. Fix the tests, so they are according to the documentation.  
 
@@ -68,8 +70,7 @@ Refer to https://k6.io/docs/using-k6/thresholds/.
 
 When you are using k6 in continous integration task, e.g. when using k6 for running core-/smoketests, you need to make sure that the process returns something other than 0. Othervise the CI pipeline will just continue. 
 
-Make sure the test fails in a way that will return a number different from 0
-Execute 'echo $?' in console after running test to the latests status code, or run the VS code task `print last return code`. Note that executing this twice will return 0.
+Make sure the test fails in a way that will return a number different from 0. When you run this as a task, the error code will be printed. It you run it in the console you need to print the return code 'echo $?' after running test.
 
 ## Challenge 4 - Understanding the test life cycle
 Refer to https://k6.io/docs/using-k6/test-life-cycle/ for this challege.

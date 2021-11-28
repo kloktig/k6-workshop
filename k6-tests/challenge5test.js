@@ -5,6 +5,7 @@ export const options = {
     vus: 1,
 }
 
+// Challenge: Inject your name via the env variable 'name'
 export default function() {
     const yourName = __ENV.name;
 
