@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace vote.Participant
@@ -15,6 +16,7 @@ namespace vote.Participant
         }
         
         [HttpPost]
+        [ProducesResponseType(typeof(IList<ParticipantDto>), 200)]
         public IActionResult Post(ParticipantDto participantDto)
         {
             try
@@ -29,6 +31,7 @@ namespace vote.Participant
         }
         
         [HttpDelete]
+        [ProducesResponseType(typeof(IList<ParticipantDto>), 200)]
         public IActionResult Delete(ParticipantDto participantDto)
         {
             try

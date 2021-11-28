@@ -21,6 +21,7 @@ namespace vote.Poll
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(PollDto), 200)]
         public async Task<IActionResult> CreatePollFromParticipants(List<ParticipantDto> participantsInPoll)
         {
             var participants = _participantRepo.GetParticipants();
@@ -30,17 +31,19 @@ namespace vote.Poll
             }
 
             await _pollRepo.WritePoll(participantsInPoll, null);
-            return Ok();
+            return Ok(_pollRepo.GetLastPoll());
         }
 
         [HttpPost]
         [Route("close/{id}")]
+        [ProducesResponseType(typeof(PollDto), 200)]
         public async Task<IActionResult> ClosePoll(string id)
         {
             return Ok(await _pollRepo.AddEndTime(id, DateTimeOffset.UtcNow));
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IList<PollEntity>), 200)]
         public IActionResult ListAll()
         {
             return Ok(_pollRepo.ListPolls());

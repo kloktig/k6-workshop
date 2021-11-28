@@ -14,6 +14,7 @@ namespace vote.Poll
         }
         
         [HttpGet]
+        [ProducesResponseType(typeof(PollDto), 200)]
         public IActionResult GetLastStartedPoll()
         {
             return Ok(_pollRepo.GetLastPoll());

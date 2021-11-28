@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace vote.Participant
@@ -14,6 +15,7 @@ namespace vote.Participant
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IList<ParticipantDto>), 200)]
         public IActionResult GetParticipants()
         {
             return Ok(_participantRepo.GetParticipants());

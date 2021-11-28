@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using vote.Poll;
@@ -20,6 +21,7 @@ namespace vote.Votes
 
         [HttpGet]
         [Route("voteCounts/{id}")]
+        [ProducesResponseType(typeof(IList<VoteCount>), 200)]
         public IActionResult GetVoteCounts(string id)
         {
             var pollDto = PollDto.From(_pollRepo.FindEntity(id));
