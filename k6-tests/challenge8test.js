@@ -4,23 +4,36 @@ import { check } from "k6";
 import http from "k6/http"
 
 const header = {
-    "Content-Type": "application/json",
-    "accept": "*/*"
+    "Content-Type": "application/json"
 }
 
 const baseUrl = "http://localhost:5135";
+const participants = ["Test1", "Test2"];
 let token;
 
-
 export const options = {
-    vus: 1000,
+    executor: 'ramping-arrival-rate',
+    startRate: 50,
+    timeUnit: '1s',
+    preAllocatedVUs: 500,
+    maxVUs: 500,
     stages: [
-        { target: 1000, duration: '1m' }
+        { target: 200, duration: '60s' },
+        { target: 0, duration: '60s' },
     ],
     thresholds: {
-        'http_req_duration{name:votes}': ['avg<400'],
+        'http_req_duration{name:votes}': ['avg<2000'],
+        'http_req_duration{name:pollCount}': ['avg<10000'],
     },
-};
+    ext: {
+        loadimpact: {
+          projectID: 3561729,
+          name: "NDC Voting Test"
+        }
+      }
+  };
+
+
 
 export function setup() {
     const participants = ensureParticipantsAndGet();
@@ -29,9 +42,7 @@ export function setup() {
     return http.get(`${baseUrl}/poll`).json();
 }
 
-const participants = ["Test1", "Test2"];
-
-export default function (setupData) {
+export default function(setupData) {
     if (__ITER == 0) {
         check(setupData, { "Poll Ready in VU context": (data) => data.id });
     }
@@ -58,7 +69,20 @@ export default function (setupData) {
     check(vote, { "Vote OK": vote => vote.status === 202 });
 }
 
+export function teardown(setupData) {
+    const closePollRes = http.get(`${baseUrl}/admin/poll/close/${setupData.id}`);
+    check(closePollRes, {
+        "Vote count status OK": res => res.status === 200,
+    });
 
+    const getPollCountRes = http.get(`${baseUrl}/admin/votes/voteCounts/${setupData.id}`);
+    
+    console.log(getPollCountRes.body);
+    
+    check(getPollCountRes, {
+        "Vote count status OK": res => res.status === 200,
+    });
+}
 
 
 function getRandomVotes() {
@@ -74,10 +98,6 @@ function getRandom(max) {
 }
 
 function login() {
-    const header = {
-        "Content-Type": "application/json",
-        "accept": "*/*"
-    }
     const url = `${baseUrl}/auth/token`;
     return http.post(url, JSON.stringify({ username: "NDC_USER", password: "NDC_PASSWORD" }), { headers: header }).body;
 }
@@ -111,6 +131,6 @@ function ensureActivePollActive(participants) {
     }
 
     const participantsInPoll = JSON.stringify(participants.slice(0, 2));
-    const poll = http.post(`${baseUrl}/admin/poll`, participantsInPoll, { headers: header });
+    const poll = http.post(`${baseUrl}/admin/poll`, participantsInPoll, { headers: header, tags: { name: "pollCount" } });
     check(poll, { "pollAdded": poll => poll.status === 200 });
 }
