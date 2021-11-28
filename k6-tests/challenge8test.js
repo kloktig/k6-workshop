@@ -7,28 +7,32 @@ const header = {
     "Content-Type": "application/json"
 }
 
-const baseUrl = "http://localhost:5135";
+const baseUrl = __ENV.baseUrl || "http://localhost:5135" ;
 const participants = ["Test1", "Test2"];
 let token;
 
 export const options = {
     executor: 'ramping-arrival-rate',
-    startRate: 50,
+    discardResponseBodies: true,
+    startRate: 0,
     timeUnit: '1s',
-    preAllocatedVUs: 500,
-    maxVUs: 500,
-    stages: [
-        { target: 200, duration: '60s' },
-        { target: 0, duration: '60s' },
-    ],
     thresholds: {
         'http_req_duration{name:votes}': ['avg<2000'],
         'http_req_duration{name:pollCount}': ['avg<10000'],
     },
+    stages: [
+        { target: 5000, duration: '30s' },
+        { target: 0, duration: '30s' },
+    ],
+    teardownTimeout: '3m',
     ext: {
         loadimpact: {
           projectID: 3561729,
-          name: "NDC Voting Test"
+          name: "NDC Voting Test",
+          distribution: {
+            ashburnDistribution: { loadZone: 'amazon:se:stockholm', percent: 50 },
+            dublinDistribution: { loadZone: 'amazon:ie:dublin', percent: 50 },
+          },
         }
       }
   };
@@ -65,19 +69,16 @@ export default function(setupData) {
     };
 
     const vote = http.post(voteUrl, votePayload, params);
-
     check(vote, { "Vote OK": vote => vote.status === 202 });
 }
 
 export function teardown(setupData) {
-    const closePollRes = http.get(`${baseUrl}/admin/poll/close/${setupData.id}`);
+    const closePollRes = http.post(`${baseUrl}/admin/poll/close/${setupData.id}`);
     check(closePollRes, {
-        "Vote count status OK": res => res.status === 200,
+        "Close poll status OK": res => res.status === 200,
     });
 
     const getPollCountRes = http.get(`${baseUrl}/admin/votes/voteCounts/${setupData.id}`);
-    
-    console.log(getPollCountRes.body);
     
     check(getPollCountRes, {
         "Vote count status OK": res => res.status === 200,
@@ -124,10 +125,11 @@ function ensureParticipantsAndGet() {
 }
 
 function ensureActivePollActive(participants) {
-    let currentPoll = http.get(`${baseUrl}/poll`).json();
-    if (currentPoll.endTime) {
+    let currentPoll = http.get(`${baseUrl}/poll`);
+    
+    if (!currentPoll.json('endTime')) {
         check({}, { "poll Already OK": () => true });
-        return currentPoll;
+        return;
     }
 
     const participantsInPoll = JSON.stringify(participants.slice(0, 2));
