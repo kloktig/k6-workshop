@@ -50,7 +50,7 @@ In VS Code
 <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> > Run test task -> Run k6test Windows|Linux
 
 ## Challenge -1 - Verifying the API is running
-* run task `run and watch web api` or start the API in some other way
+* run task `run web api` or start the API in some other way
 * run taks `ping api` or verify the API is running in some other way
 
 ## Challenge 0 - Get to know the API
