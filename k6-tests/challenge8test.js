@@ -12,16 +12,15 @@ const participants = ["Test1", "Test2"];
 let token;
 
 export const options = {
-    executor: 'ramping-arrival-rate',
-    discardResponseBodies: true,
-    startRate: 0,
+    discardResponseBodies: false,
+    vus: 100,
     timeUnit: '1s',
     thresholds: {
         'http_req_duration{name:votes}': ['avg<2000'],
         'http_req_duration{name:pollCount}': ['avg<10000'],
     },
     stages: [
-        { target: 5000, duration: '30s' },
+        { target: 10, duration: '30s' },
         { target: 0, duration: '30s' },
     ],
     teardownTimeout: '3m',
@@ -30,7 +29,7 @@ export const options = {
           projectID: 3561729,
           name: "NDC Voting Test",
           distribution: {
-            ashburnDistribution: { loadZone: 'amazon:se:stockholm', percent: 50 },
+            stockholmDistribution: { loadZone: 'amazon:se:stockholm', percent: 50 },
             dublinDistribution: { loadZone: 'amazon:ie:dublin', percent: 50 },
           },
         }
@@ -54,6 +53,7 @@ export default function(setupData) {
     if (!token) {
         token = login(`${baseUrl}`);
     }
+    
     check(token, { "Token OK": t => !!t });
 
     const voteUrl = `${baseUrl}/${setupData.id}`;
@@ -104,7 +104,7 @@ function login() {
 }
 
 function ensureParticipantsAndGet() {
-    let participants = http.get(`${baseUrl}/participants`).json()
+    let participants = http.get(`${baseUrl}/participants`).json();
     const participantArr = participants.map(p => p.name)
 
     if (!participantArr.includes("Test1"))
@@ -127,7 +127,7 @@ function ensureParticipantsAndGet() {
 function ensureActivePollActive(participants) {
     let currentPoll = http.get(`${baseUrl}/poll`);
     
-    if (!currentPoll.json('endTime')) {
+    if (!!currentPoll.json('startTime') && !currentPoll.json('endTime')) {
         check({}, { "poll Already OK": () => true });
         return;
     }
