@@ -93,7 +93,7 @@ I have chosen pragmatic solution, where i use the files imported into node_modul
 
 You can use webpack to bundle if you want a prettier solution for this. https://k6.io/docs/using-k6/modules/#setting-up-the-bundler
 
-## Challenge 8: Scenario Test
+## Challenge 8: Scenario Test (and cloud run)
 Make a more complex test where you:
 * Setup:
     * Add participants
@@ -103,5 +103,4 @@ Make a more complex test where you:
     * Login user, i.e. get access token
     * Add votes
 
-## Challenge 9: Run cloud tests, and discuss the result
-We run a scenario test towards the deployed voting system, and discuss the results and potential improvements.
+Cloud: We run a scenario test towards the deployed voting system, and discuss the results and potential improvements.
