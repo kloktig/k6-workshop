@@ -1,7 +1,8 @@
-version: '3.7'
+version: '3'
 services:
   azurite:
     image: mcr.microsoft.com/azure-storage/azurite
+    platform: linux/x86_64
     hostname: azurite
     restart: always
     ports:
@@ -9,16 +10,17 @@ services:
       - '10001:10001'
       - '10002:10002'
     volumes:
-      - '~/azurite:/data'    
+      - '~/azurite:/data'
 
   voteapi:
     restart: always
+    platform: linux/x86_64
     build:
       context: .
       dockerfile: Dockerfile
-    ports: 
-      - "7240:7240"
-      - "5135:5135"
+    ports:
+      - '7240:7240'
+      - '5135:5135'
     volumes:
-      - ../:/workspace:cached  
-    command: /bin/sh -c "while sleep 1000; do :; done"  
+      - ../:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
